@@ -27,10 +27,8 @@ def login_user(user: User = Body(...)):
     try:
         stored_user = userCollection.find_one({"name": user.name})
         if stored_user:
-            # print("payload",user.password)
-            # print("stored",stored_user["password"])
             check = Hasher.check(user.password, stored_user["password"])
-            if check==False:
+            if check == False:
                 return JSONResponse(
                     content={"message": "Invalid password"}, status_code=401
                 )

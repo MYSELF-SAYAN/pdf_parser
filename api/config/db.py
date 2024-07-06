@@ -1,9 +1,13 @@
 
 from urllib.parse import quote_plus
-
+from dotenv import load_dotenv
+import os
 from pymongo import MongoClient
-username = "sayanmukherjee7663"
-password = "sayan@7663"
+
+load_dotenv()
+
+username = os.getenv("MONGO_USERNAME")
+password = os.getenv("MONGO_PASSWORD")
 encoded_username = quote_plus(username)
 encoded_password = quote_plus(password)
 uri = f"mongodb+srv://{encoded_username}:{encoded_password}@cluster0.ev0uhk5.mongodb.net/?retryWrites=true&w=majority"

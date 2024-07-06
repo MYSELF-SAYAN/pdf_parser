@@ -1,9 +1,18 @@
 from pydantic import BaseModel
+from typing import Optional, List,Dict
+
+
+class Part(BaseModel):
+    text: str
+
+
 class Conversation(BaseModel):
-    question: str
-    answer: str
+    parts:  Dict[str, str]
+    role: str
+
 
 class Pdf(BaseModel):
     title: str
-    file: str
-    conversations: list[Conversation]
+    fileurl: str
+    fileData: str
+    conversations: Optional[List[Conversation]] = []

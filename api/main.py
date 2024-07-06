@@ -3,16 +3,20 @@ from urllib.parse import quote_plus
 import json
 from bson import json_util
 from fastapi import FastAPI
-from api.routers import auth
+from api.routers import auth, pdf
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
-# username = "sayanmukherjee7663"
-# password = "sayan@7663"
-# encoded_username = quote_plus(username)
-# encoded_password = quote_plus(password)
 
-# # Construct your URI using the encoded credentials
-# uri = f"mongodb+srv://{encoded_username}:{encoded_password}@cluster0.ev0uhk5.mongodb.net/?retryWrites=true&w=majority"
-
-# conn=MongoClient(uri)
+origins = [
+    "http://localhost:5173","http://localhost:52531",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(auth.router)
+app.include_router(pdf.router)
